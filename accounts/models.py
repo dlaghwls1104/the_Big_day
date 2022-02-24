@@ -9,3 +9,5 @@ class Profile(models.Model):
     image = models.ImageField(blank=True)
     mypoint = models.IntegerField(default = 100)
     
+
+

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts',
     'visitor',
+    'qnaboard',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -43,22 +43,22 @@
             </h5>
             <div class="mb-4"></div>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-primary" onclick="displayInputForm() ">글 작성하기</button></div>
+                <button class="btn btn-primary" onclick="displayInputForm() ">출석체크</button></div>
             <div id="ccform">
                 <div class="mb-4"></div>
                 <h3>인삿말을 남겨주세요^^</h3>
                   <hr>
                   <form method="post" action="{% url 'vC' %}">
                     {% csrf_token %}
-                  <div class="col-md-4 mb-3">
-                    <input type="text" class="form-control" name="name"  placeholder="작성자 이름">
-                 </div>
-                 <div class="col-md-8 mb-3">
-                    <input type="text" class="form-control" name="memo" placeholder="인삿말을 남겨주세요.">
-                 </div>
+                    <div class="col-md-4 mb-3">
+                        <input type="text" class="form-control" name="name"  placeholder="작성자 이름">
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <input type="text" class="form-control" name="memo" placeholder="인삿말을 남겨주세요.">
+                    </div>
                     <div class="mb-4"></div>
                     <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-primary" style="margin-top:5px" type="submit">제출</button>
+                        <button class="btn btn-primary" style="margin-top:5px" type="submit">인사하기</button>
                     </div>
                 </form>
             </div>

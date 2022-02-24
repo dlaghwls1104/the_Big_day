@@ -11,4 +11,5 @@ urlpatterns = [
     path('accounts/signin/', include('django.contrib.auth.urls')), 
     path('accounts/', include('accounts.urls')), 
     path('visitor/', include('visitor.urls')),
+    path('qnaboard/', include('qnaboard.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

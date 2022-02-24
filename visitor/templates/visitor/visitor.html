@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block body %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<div style="text-align: center; max-width: 600px; margin: 4rem auto">
+    <div>
+        <h2>출석체크</h2>
+    </div>
+<hr>
+    <div>
+        <table class="ttable table-hover">
+            <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">작성자</th>
+                  <th scope="col">인삿말</th>
+                  <th scope="col">작성시간</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for vdata in vlist %}
+            <tr>
+                <td>{{ vdata.name }}</td>
+                <td>{{ vdata.memo }}</td>
+                <td>{{ vdata.writedate }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            
+            <h5>
+                {% if vlist.has_previous %}
+                    <a href='?page={{vlist.number|add:-1}}'>이전페이지</a>
+                {% endif %}
+                Page {{ vlist.number }} / {{ vlist.paginator.num_pages }}
+                {% if vlist.has_next %}
+                    <a href='?page={{vlist.number|add:+1}}'>다음페이지</a>
+                {% endif %}
+            </h5>
+            <div class="mb-4"></div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" onclick="displayInputForm() ">글 작성하기</button></div>
+            <div id="ccform">
+                <div class="mb-4"></div>
+                <h3>인삿말을 남겨주세요^^</h3>
+                  <hr>
+                  <form method="post" action="{% url 'vC' %}">
+                    {% csrf_token %}
+                  <div class="col-md-4 mb-3">
+                    <input type="text" class="form-control" name="name"  placeholder="작성자 이름">
+                 </div>
+                 <div class="col-md-8 mb-3">
+                    <input type="text" class="form-control" name="memo" placeholder="인삿말을 남겨주세요.">
+                 </div>
+                    <div class="mb-4"></div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-primary" style="margin-top:5px" type="submit">제출</button>
+                    </div>
+                </form>
+            </div>
+        </table>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function displayInputForm() {
+        $('#ccform').css('display', 'block')
+    }
+     function dd_confirm(name, pk) {
+        let result = confirm(name+"님의 글을 삭제하겠습니까??");
+        if( result )
+            location.href = "{% url 'vD' %}?pk="+pk;
+     }
+    function ajax_uu_request(pk) {
+        $.getJSON("{% url 'vU' %}?pk="+pk, function(jsonObj) {
+           $('#ccform').css('display', 'block')
+           const dom1 = $('[name="name"]');
+           const dom2 = $('[name="memo"]');
+           dom1.removeAttr("placeholder");
+           dom1.attr("value", jsonObj.name);
+           dom2.removeAttr("placeholder");
+           dom2.text(jsonObj.memo);
+           $('#ccform h2').text("글을 수정해 주세요")
+            $('#ccform form').attr("action", "{% url 'vU' %}?pk="+pk)
+        });
+    }
+</script>
+{% endblock %}

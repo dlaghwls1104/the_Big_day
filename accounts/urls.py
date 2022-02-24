@@ -8,8 +8,7 @@ app_name = "accounts"
 urlpatterns = [
     path('signup/', views.signup, name="signup"),
     # "<내 URL>/accounts/signup/" 주소로 요청이 오면 views.py 안에 signup이라는 함수를 찾아 실행한다.
-    path('login/', auth_views.LoginView.as_view(), name="login"),
-    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
-    path('signup/', views.signup, name="signup"),
+    # path('login/', auth_views.LoginView.as_view(), name="login"),
+    # path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     # path('profile/', views.profile, name="profile"),
 ]

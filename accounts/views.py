@@ -5,10 +5,19 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
 
 def signup(request): # urls.py에 views.signup이 이 함수를 가리킨다.
+    """
+    회원가입
+    """
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid(): # 회원가입 폼에서 적어 보낸 요청이 유효한지 검사한다.
             user = form.save() # 유효한 내용이면 이 회원 정보를 데이터베이스에 저장한다. 그 유저 정보를 리턴한다.
+            username = request.POST.get('username', None)
+            nickname = request.POST.get('nickname', None)
+            password = request.POST.get('inputpassword', None)
+            repassword = request.POST.get('re-password', None)
+            useremail = request.POST.get('email', None)
+            
             user_login(request, user) # 유저 정보를 이용해 로그인한다.
         return redirect('accounts:signup')
     	# redirect 시 urls.py의 <app_name>:<name>으로 요청을 보낸다.

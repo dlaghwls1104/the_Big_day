@@ -1,0 +1,19 @@
+<!-- form.html -->
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+    <h1 class="text-center">
+        {% if "signup" in request.path %}
+        회원가입
+        {% else %}
+        로그인
+        {% endif %}
+    </h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">가입</button>
+    </form>
+{% endblock %}

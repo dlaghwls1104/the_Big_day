@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
+
+{% if user.first_name %}
 <h1>{{ user.first_name}} {{ user.last_name }} 님의 프로필</h1>
+{% else %}
+<h1>{{ user.username}}님의 프로필</h1>
+{% endif %}
+<i class="fa-light fa-face-grin"></i>
 <hr>
-<h3>{{ user.first_name}} {{ user.last_name }} 님이 쓴 글</h3>
+
+{% if user.first_name %}
+<h3>{{ user.first_name}} {{ user.last_name }} 님이 쓴 글 - {{user.question_set.count}}개</h3>
+{% else %}
+<h3>{{ user.username}}님이 쓴 글 - {{user.question_set.count}}개 </h3>
+{% endif %}
 <hr>
+{% for article in user.question_set.all %}
+    <p>{{ article }} {{ article.create_date }}</p>
+{% endfor%}
 {% if request.user == user %}
     <a href="{% url 'common:update' user.username %}">회원 수정</a>
 {% endif %}

@@ -25,7 +25,7 @@
                 <span class="text-danger small ml-2">{{ question.answer_set.count }}</span>
                 {% endif %}
             </td>
-            <td>{{ question.author.username }}</td> <!-- 글쓴이 속성 추가 -->
+            <td><a href="{% url 'common:detail' question.author.username %}">{{ question.author.username }}</a></td> <!-- 글쓴이 속성 추가 -->
             <td>{{ question.create_date }}</td>
         </tr>
         {% endfor %}

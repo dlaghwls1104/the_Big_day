@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 def qnaindex(request):
     """
-    pybo 목록 출력
+    목록 출력
     """
     #입력파라미터
     page = request.GET.get('page','1')
@@ -26,7 +26,7 @@ def qnaindex(request):
 
 def detail(request, question_id):
     """
-    pybo 내용 출력
+    내용 출력
     """
     question = Question.objects.get(id=question_id)
     context = {'question': question}
@@ -35,7 +35,7 @@ def detail(request, question_id):
 @login_required(login_url='common:login') # 로그인을 어노테이션 - 로그인 상태에서 작동되게
 def answer_create(request, question_id):
     """
-    pybo 답변 등록
+    답변 등록
     """
     #answer_create함수의 매개변수를 URL 매핑으로 전달
     question = get_object_or_404(Question, pk=question_id)
@@ -57,7 +57,7 @@ def answer_create(request, question_id):
 @login_required(login_url='common:login') # 로그인을 어노테이션 - 로그인 상태에서 작동되게
 def question_create(request):
     """
-    pybo 질문등록
+    질문등록
     """
     if request.method == 'POST':
         form = QuestionForm(request.POST)
@@ -77,7 +77,7 @@ def question_create(request):
 @login_required(login_url='common:login') # 로그인을 어노테이션 - 로그인 상태에서 작동되게
 def question_modify(request, question_id):
     """
-    pybo 수정
+    수정
     """
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.author:
@@ -99,7 +99,7 @@ def question_modify(request, question_id):
 @login_required(login_url='common:login')
 def question_delete(request, question_id):
     """
-    pybo 질문삭제
+    질문삭제
     """
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.author:
@@ -112,7 +112,7 @@ def question_delete(request, question_id):
 @login_required(login_url='common:login')
 def answer_modify(request, answer_id):
     """
-    pybo 답변수정
+    답변수정
     """
     answer = get_object_or_404(Answer, pk=answer_id)
     if request.user != answer.author:
@@ -134,7 +134,7 @@ def answer_modify(request, answer_id):
 @login_required(login_url='common:login')
 def answer_delete(request, answer_id):
     """
-    pybo 답변삭제
+    답변삭제
     """
     answer = get_object_or_404(Answer, pk=answer_id)
     if request.user != answer.author:
@@ -142,3 +142,36 @@ def answer_delete(request, answer_id):
     else:
         answer.delete()
     return redirect('qnaboard:detail', question_id=answer.question.id)
+
+@login_required(login_url='common:login')
+def answer_like(request, answer_id):
+    answer = get_object_or_404(Answer, pk=answer_id)
+    if request.user in answer.like_users.all():
+        answer.like_users.remove(request.user)
+    else:
+        answer.like_users.add(request.user)
+    return redirect('qnaboard:detail', question_id=answer.question.id)
+
+@login_required(login_url='common:login')
+def answer_reply(request, answer_id):
+    """
+    답변에 댓글 등록
+    """
+    #answer_reply함수의 매개변수를 URL 매핑으로 전달
+    answer = get_object_or_404(Answer, pk=answer_id)
+
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer_reply = form.save(commit=False)
+            answer_reply.author = request.user # author 속성에 로그인 계정을 저장
+            answer_reply.create_date = timezone.now()
+            answer_reply.answer = answer
+            answer_reply.save()
+            return redirect('qnaboard:detail', answer_id=answer.id)
+    else:
+        form = AnswerForm()
+    context = {'answer': answer, 'form': form}
+    return render(request, 'qnaboard/question_detail.html', context)  
+
+    

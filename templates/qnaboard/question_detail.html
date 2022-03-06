@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-3">
+    <!-- 사용자오류 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
+    </div>
+    {% endif %}
     <!-- 질문 내용 Start -->
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     <div class="card my-3">
@@ -12,7 +21,14 @@
                     <div>{{ question.create_date }}</div>
                 </div>
             </div>
-            <input type="submit" value="수정" class="btn btn-primary">
+            {% if request.user == question.author %}
+            <div class="my-3">
+                <a href="{% url 'qnaboard:question_modify' question.id  %}" 
+                class="btn btn-sm btn-outline-secondary">수정</a>
+                <a href="#" class="delete btn btn-sm btn-outline-secondary"
+                data-uri="{% url 'qnaboard:question_delete' question.id  %}">삭제</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!-- 질문 내용 End -->
@@ -55,4 +71,15 @@
     </form>
     
 </div>
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $(".delete").on('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = $(this).data('uri');
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -73,3 +73,72 @@ def question_create(request):
         form = QuestionForm()
     context = {'form': form}
     return render(request, 'qnaboard/question_form.html', context)
+
+@login_required(login_url='common:login') # 로그인을 어노테이션 - 로그인 상태에서 작동되게
+def question_modify(request, question_id):
+    """
+    pybo 수정
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user != question.author:
+        messages.error(request, '수정권한이 없습니다.')
+        return redirect('qnaboard:detail', question_id=question_id)
+    
+    if request.method == "POST":
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.modify_date = timezone.now()  # 수정일시 저장
+            question.save()
+            return redirect('qnaboard:detail', question_id=question.id)
+    else:
+        form = QuestionForm(instance=question)
+    context = {'form': form}
+    return render(request, 'qnaboard/question_form.html', context)
+
+@login_required(login_url='common:login')
+def question_delete(request, question_id):
+    """
+    pybo 질문삭제
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user != question.author:
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('qnaboard:detail', question_id=question.id)
+    question.delete()
+    return redirect('qnaboard:qnaindex')   
+
+
+@login_required(login_url='common:login')
+def answer_modify(request, answer_id):
+    """
+    pybo 답변수정
+    """
+    answer = get_object_or_404(Answer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('qnaboard:detail', question_id=answer.question.id)
+
+    if request.method == "POST":
+        form = AnswerForm(request.POST, instance=answer)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.modify_date = timezone.now()
+            answer.save()
+            return redirect('qnaboard:detail', question_id=answer.question.id)
+    else:
+        form = AnswerForm(instance=answer)
+    context = {'answer': answer, 'form': form}
+    return render(request, 'qnaboard/answer_form.html', context)
+
+@login_required(login_url='common:login')
+def answer_delete(request, answer_id):
+    """
+    pybo 답변삭제
+    """
+    answer = get_object_or_404(Answer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '삭제권한이 없습니다')
+    else:
+        answer.delete()
+    return redirect('qnaboard:detail', question_id=answer.question.id)

@@ -1,20 +1,34 @@
 from django.shortcuts import render, redirect
-from .models import Cafe
-from .forms import CafeForm
+from .models import Maps
+from .forms import MapsForm
+
 
 def index(request):
-    cafe = Cafe.objects.order_by('-id')
-    context = {'cafe': cafe}
-    return render(request, 'cafe.html', context)
+    map = Maps.objects.order_by('-id')
+    context = {'map': map}
+    return render(request, 'map/info.html', context)
 
-def cafe_create(request):
+
+def map_create(request):
     if request.method == 'POST':
-        form = CafeForm(request.POST)
+        form = MapsForm(request.POST)
         if form.is_valid():
-            cafe = form.save()
-            cafe.save()
+            map = form.save()
+            map.save()
             return redirect('/map/')
     else:
-        form = CafeForm()
-    context = {'form': form}
-    return render(request, 'cafe_create.html', context)
+        form = MapsForm()
+        context = {'form': form}
+    return render(request, 'map/cafe_create.html', context)
+
+
+def map_notebook(request):
+    map = Maps.objects.order_by('-id')
+    context = {'map': map}
+    return render(request, 'map/map_notebook.html', context)
+
+
+def map_study(request):
+    map = Maps.objects.order_by('-id')
+    context = {'map': map}
+    return render(request, 'map/map_study.html', context)

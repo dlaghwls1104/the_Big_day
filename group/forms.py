@@ -1,5 +1,5 @@
 from django import forms
-from group.models import Recruit, Applicant
+from group.models import Recruit, Applicant, Comment
 
 
 class RecruitForm(forms.ModelForm):
@@ -20,4 +20,13 @@ class ApplicantForm(forms.ModelForm):
         fields = ['content']
         labels = {
             'content': '답변내용',
+        }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        labels = {
+            'content': '댓글내용',
         }

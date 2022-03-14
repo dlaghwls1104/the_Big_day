@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from .models import Challenge, Photo
 from . import forms
-import random
+
 
 @login_required(login_url='users:login')  # 로그인을 어노테이션 - 로그인 상태에서 작동되게
 def Challenge_create(request):
@@ -58,11 +58,10 @@ def challenger(request, challenge_id):
 def ChallengeList(request):
     page = request.GET.get('page', '1')
     challenge_list = Challenge.objects.all()
-    rand = random.choice(challenge_list)
     paginator = Paginator(challenge_list, 10)
     page_obj = paginator.get_page(page)
     print(vars(page_obj.paginator))
-    context = {"challenge_list": page_obj, " rand":  rand}
+    context = {"challenge_list": page_obj}
     return render(request, "challenges/challenge_list.html", context)
 
 

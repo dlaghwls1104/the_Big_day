@@ -1,9 +1,11 @@
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils import timezone
+import datetime
 from .models import Challenge, Photo
 from . import forms
 
@@ -39,7 +41,12 @@ def challengedetail(request, challenge_id):
     내용 출력
     """
     challenge = Challenge.objects.get(id=challenge_id)
-    context = {'challenge': challenge}
+    date_now = datetime.date.today()
+    if date_now > challenge.date_start:
+        timeover = True
+    else:
+        timeover = False
+    context = {'challenge': challenge, 'timeover': timeover}
     return render(request, 'challenges/challenge_detail.html', context)
 
 
@@ -60,7 +67,7 @@ def ChallengeList(request):
     challenge_list = Challenge.objects.all()
     paginator = Paginator(challenge_list, 10)
     page_obj = paginator.get_page(page)
-    print(vars(page_obj.paginator))
+    # print(vars(page_obj.paginator))
     context = {"challenge_list": page_obj}
     return render(request, "challenges/challenge_list.html", context)
 

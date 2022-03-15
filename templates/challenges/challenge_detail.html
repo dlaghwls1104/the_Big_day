@@ -11,7 +11,12 @@
             <span>도전 종료 날짜 : {{ challenge.date_finish}}</span></div>
             <hr>
             <!-- 참여 버튼 Start-->
-            <a href="{% url 'challenges:join' challenge.id %}" class="btn btn-primary">참여하기
+            <a href="{% url 'challenges:join' challenge.id %}" role="button"
+            {% if timeover  %} 
+            class="btn btn-primary disabled" aria-disabled="true" 
+            {% else %}
+            class="btn btn-primary" aria-pressed="true"
+            {% endif %}>참여하기
             <span>/{{ challenge.challenger.count}}명 참여중</span></a>
             <!-- 참여 버튼 END -->
             </div>

@@ -1,5 +1,7 @@
 # the_Big_day
 
+웹사이트 : http://dlagh.pythonanywhere.com/
+
 #### 🖋SUMMARY
 
 - 📅<B>프로젝트 기간</B>
@@ -31,9 +33,9 @@
  </br>
  
 - 😃<B>개발 언어</B>
-  - Python,SQL
-- 😃<B>libray</B>
-  - Numpy, Pandas, Scipy
+  - Python, HTML, CSS, Javscript
+- 😃<B>framwork</B>
+  - Django
 
 </br>
 
@@ -52,17 +54,19 @@
 </br>
 
 
-## ⛳주요 기능
+- ⛳<B>주요 기능</B>
 
----
+  - 로그인 및 로그아웃
+  - 회원가입
+  - 프로필 수정 및 관리
+  - 지도 API를 활용한 인근 정보 지도
+  - 알고리즘 공부 게시판
+  - 챌린지 게시판
+  - Q&A 게시판
+  
+</br>
 
-### 1. 장고 프로젝트 구성
-### 2. 데이터베이스 구성
-### 3. 로그인 및 로그아웃
-### 4. 회원가입
-### 5. 프로필 수정 및 관리
-### 6. 지도 API를 활용한 인근 정보 지도
-### 7. 알고리즘 공부 게시판
-### 8. 챌린지 게시판
-### 9. Q&A 게시판
+- <B>PPT</B>
+
+  - [The big day.pptx](https://github.com/dlaghwls1104/the_Big_day/files/9092222/The.big.day.pptx)
 

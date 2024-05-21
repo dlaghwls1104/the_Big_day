@@ -22,7 +22,12 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-        <script src="/static/js/gtm.js"></script>        
+        <script src="/static/js/gtm.js"></script> 
+        <script> let pageviewObj = {
+             title: '제발 test',
+            ep_page_1depth: '제발',
+            };
+            sendGAPage(pageviewObj); </script>         
     </head>
     <body id="page-top">
         <!-- Google Tag Manager (noscript) -->

@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Ex_GP_test</title>
+        <title>Ex_GP</title>
         <!-- Favicon-->
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -38,6 +38,13 @@
         <!-- Core theme JS-->
         <script src="{% static 'scripts.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script>
+            let pageviewObj = {
+             title: 'EP_GX Datalayer Test',
+            ep_visit_channel:'PC',
+            };
+            sendGAPage(pageviewObj);
+            </script>
         {% block script %}
         {% endblock %}
     </body>

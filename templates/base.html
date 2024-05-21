@@ -22,6 +22,13 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <script>
+            let pageviewObj = {
+             title: '제발 test',
+            ep_page_1depth: '제발',
+            };
+            sendGAPage(pageviewObj);
+        </script>          
     </head>
     <body id="page-top">
         <!-- Google Tag Manager (noscript) -->
@@ -38,13 +45,6 @@
         <!-- Core theme JS-->
         <script src="{% static 'scripts.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-        <script>
-            let pageviewObj = {
-             title: 'EP_GX Datalayer Test',
-            ep_visit_channel:'PC',
-            };
-            sendGAPage(pageviewObj);
-            </script>
         {% block script %}
         {% endblock %}
     </body>

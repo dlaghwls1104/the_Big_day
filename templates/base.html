@@ -29,6 +29,7 @@
             };
             sendGAPage(pageviewObj);
         </script>          
+        <script src="{% static 'gtm.js' %}"></script>
     </head>
     <body id="page-top">
         <!-- Google Tag Manager (noscript) -->
@@ -45,7 +46,6 @@
         <!-- Core theme JS-->
         <script src="{% static 'scripts.js' %}"></script>
         <!-- Core theme JS-->
-        <script src="{% static 'gtm.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         {% block script %}
         {% endblock %}

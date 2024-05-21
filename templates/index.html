@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load group_filter %}
 {% block content %}
+<script>
+    let pageviewObj = {
+     title: '제발 test',
+    ep_page_1depth: '제발',
+    };
+    sendGAPage(pageviewObj);
+</script>  
         <!-- Masthead-->
         <header class="masthead">
             <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">

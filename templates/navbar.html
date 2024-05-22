@@ -29,7 +29,12 @@
                   <a class="nav-link" href="{% url 'users:detail' user.id %}">{{ request.user.first_name }}</a>
                   <a class="nav-link" href="{% url 'users:logout' %}">(로그아웃)</a>
                   {% else %}
-                  <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">로그인</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}" onClick="sendGAEvent({
+                    event_name:'click_event',
+                    ep_click_page:'메인',
+                    ep_click_area:'top',
+                    ep_click_label:'로그인'
+                    }, false)">로그인</a></li>
                   {% endif %}
                 </ul>
             </div>

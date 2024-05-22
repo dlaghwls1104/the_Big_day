@@ -8,7 +8,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="nav justify-content-between">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'competition:index' %}">공고</a>
+                  <a class="nav-link active" aria-current="page" href="#" onClick="sendGAEvent({event_name:'click_event', ep_click_page:'메인', ep_click_area:'top', ep_click_label:'로그인'}, false)">공고</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'map:index' %}">맛집</a>
@@ -29,12 +29,7 @@
                   <a class="nav-link" href="{% url 'users:detail' user.id %}">{{ request.user.first_name }}</a>
                   <a class="nav-link" href="{% url 'users:logout' %}">(로그아웃)</a>
                   {% else %}
-                  <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}" onClick="sendGAEvent({
-                    event_name:'click_event',
-                    ep_click_page:'메인',
-                    ep_click_area:'top',
-                    ep_click_label:'로그인'
-                    }, false)">로그인</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}" onClick="sendGAEvent({event_name:'click_event', ep_click_page:'메인', ep_click_area:'top', ep_click_label:'로그인'}, false)"> 로그인</a></li>
                   {% endif %}
                 </ul>
             </div>
